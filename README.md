@@ -26,13 +26,7 @@ You'll be prompted a few questions. Pick the `scss` stylesheet format, and `cypr
 
 ![Commit email](images/img-1.png)
 
-If you encounter the error message
-
-```diff
-- "NX Failed to process project graph. Run 'nx reset' to fix this. Please report the issue if you keep seeing it.",
-```
-
-follow these steps to resolve it:
+If you encounter the error message $\textcolor{#ff5861}{\textsf{"NX Failed to process project graph. Run 'nx reset' to fix this. Please report the issue if you keep seeing it."}}$, follow these steps to resolve it:
 
 ```shell
  1. remove the `node_modules`
