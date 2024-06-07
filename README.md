@@ -71,6 +71,80 @@ You'll be prompted a few questions. Pick the `Angular` stack, `Integrated` Monor
       npx nx g @nx/angular:service user --project=data-access-user
     ```
 
+## Converting the Dashboard application to <ins>Dynamic Module Federation</ins>:
+
+- Add a `module-federation.manifest.json` file to the `src/assets/` folder in `Dashboard` application with the following content:
+
+  ```json
+  {
+    "login": "http://localhost:4201"
+  }
+  ```
+
+- Next, open the `main.ts` file under `src/` folder in `Dashboard` application and replace it with the following:
+
+  ```ts
+  import { setRemoteDefinitions } from '@nx/angular/mf';
+
+  fetch('/assets/module-federation.manifest.json')
+    .then((res) => res.json())
+    .then((definitions) => setRemoteDefinitions(definitions))
+    .then(() => import('./bootstrap').catch((err) => console.error(err)));
+  ```
+
+- ### Change how Remotes are loaded:
+
+  - Open the `module-federation.config.ts` file at the root of our `apps/dashboard/` folder and set the remotes property to be an <ins>empty array</ins>.
+  - Next, we need to change how our application attempts to load the Remote when it is routed to. Open the `app.routes.ts` file under the `src/app/` folder in `Dashboard` application and apply the following changes:
+
+    ```ts
+    import { Route } from '@angular/router';
+    import { loadRemoteModule } from '@nx/angular/mf';    <-- Updated
+    import { AppComponent } from './app.component';
+    export const appRoutes: Route[] = [
+      {
+        path: 'login',
+        loadChildren: () => loadRemoteModule('login', './Routes').then((m) => m.remoteRoutes),    <-- Updated
+      },
+      {
+        path: '',
+        component: AppComponent,
+      },
+    ];
+    ```
+
+  - > $\textcolor{#ca8a04}{\textsf{NOTE:}}$ Open the `project.json` file under the `src/` folder in `Dashboard` application and add the newly created `assests` folder as follows:
+    ```json
+    "assets": [
+      {
+        "glob": "**/*",
+        "input": "apps/dashboard/public"
+      },
+      "apps/dashboard/src/assets"   <-- Updated
+    ],
+    ```
+  - That’s all the changes required. Then, Serve both `Dashboard` and `Login` apps.
+    ```sh
+    npx nx serve dashboard --devRemotes=login
+    ```
+
+## Creating a new Dynamic Host application:
+
+- Generate the `Employee` **Host** application
+
+  ```sh
+  npx nx g @nx/angular:host apps/employee --remotes=login --dynamic
+  ```
+
+  > $\textcolor{#ff5861}{\textsf{NOTE:}}$ By default, the `module-federation.manifest.json` file is generated in the `public/` folder of the `employee` application. You should move this file to the `src/assets/` directory (create the `assets` directory if it does not exist). After moving the file, update its path in the `main.ts` file located in the `src/` directory. Additionally, add the line `"apps/employee/src/assets"` to the `assets` section of the `build` targets in the `project.json` file within the `employee` application.
+
+  > $\textcolor{#0ea5e9}{\textsf{INFO:}}$ You should take a look at the files generated and see how the`Login` Remote application was added to the `module-federation.manifest.json` file and the slight changes to `main.ts` and `app.routes.ts` to load the Remotes dynamically.
+
+- Generate the `Todo` **Remote** application
+  ```sh
+  npx nx g @nx/angular:remote apps/todo --host=employee
+  ```
+
 ## Serving applications:
 
 - ### Serve `Login` app:
@@ -94,66 +168,23 @@ You'll be prompted a few questions. Pick the `Angular` stack, `Integrated` Monor
 > $\textcolor{#ca8a04}{\textsf{When serving module federation apps locally in dev mode, there'll be an error output to the console(inspect devTools): import.meta cannot be used outside of a module.}}$
 > $\textcolor{#ca8a04}{\textsf{You'll see the error originates from the styles.js script. It's a known error output, and as far as our testing has shown, it doesn't cause any breakages.}}$
 > $\textcolor{#ca8a04}{\textsf{It happens because the Angular compiler attaches the styles.js file to the index.html in a 'script' tag with defer.}}$
-> 
+>
 > $\textcolor{#ca8a04}{\textsf{It needs to be attached with type=module, but Angular can't make that change because it breaks HMR. They also provide no way of hooking into that process for us to patch it ourselves.}}$
-> 
+>
 > $\textcolor{#ca8a04}{\textsf{The good news is that the error doesn't propagate to production because styles are compiled to a CSS file, so there's no erroneous JS to log an error.}}$
-> 
+>
 > $\textcolor{#ca8a04}{\textsf{It's worth stressing that no errors or breakages have been noted from our tests.
 }}$
 
-## Converting the Dashboard application to <ins>Dynamic Module Federation</ins>:
-
-- Add a `module-federation.manifest.json` file to the `src/assets/` folder in `Dashboard` application with the following content:
-
-  ```json
-  {
-    "login": "http://localhost:4201"
-  }
+# Or simply run the applications:
+  ```sh
+  npm run run-many
   ```
 
-- Next, open the `main.ts` file under `src/` folder in `Dashboard` application and replace it with the following:
-
-  ```ts
-  import { setRemoteDefinitions } from '@nx/angular/mf';
-
-  fetch('/assets/module-federation.manifest.json')
-    .then((res) => res.json())
-    .then((definitions) => setRemoteDefinitions(definitions))
-    .then(() => import('./bootstrap').catch((err) => console.error(err)));
+  ```sh
+  npm run start:emp
   ```
 
-- ### Change how Remotes are loaded:
-  - Open the `module-federation.config.ts` file at the root of our `apps/dashboard/` folder and set the remotes property to be an <ins>empty array</ins>.
-  - Next, we need to change how our application attempts to load the Remote when it is routed to. Open the `app.routes.ts` file under the `src/app/` folder in `Dashboard` application and apply the following changes:
-    ```typescript
-    import { Route } from '@angular/router';
-    import { loadRemoteModule } from '@nx/angular/mf';    <-- Updated
-    import { AppComponent } from './app.component';
-    export const appRoutes: Route[] = [
-      {
-        path: 'login',
-        loadChildren: () => loadRemoteModule('login', './Routes').then((m) => m.remoteRoutes),    <-- Updated
-      },
-      {
-        path: '',
-        component: AppComponent,
-      },
-    ];
-    ```
-  - > $\textcolor{#ca8a04}{\textsf{NOTE:}}$ Open the `project.json` file under the `src/` folder in `Dashboard` application and add the newly created `assests` folder as follows:
-    ```json
-    "assets": [
-      {
-        "glob": "**/*",
-        "input": "apps/dashboard/public"
-      },
-      "apps/dashboard/src/assets"   <-- Updated
-    ],
-    ```
-  - That’s all the changes required. Then, Serve both `Dashboard` and `Login` apps.
-    ```sh
-    npx nx serve dashboard --devRemotes=login
-    ```
-
-## Creating a new Dynamic Host application:
+  ```sh
+  npm run start:dash
+  ```
