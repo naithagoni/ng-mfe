@@ -126,7 +126,7 @@ You'll be prompted a few questions. Pick the `Angular` stack, `Integrated` Monor
 - ### Change how Remotes are loaded:
   - Open the `module-federation.config.ts` file at the root of our `apps/dashboard/` folder and set the remotes property to be an <ins>empty array</ins>.
   - Next, we need to change how our application attempts to load the Remote when it is routed to. Open the `app.routes.ts` file under the `src/app/` folder in `Dashboard` application and apply the following changes:
-    ```ts
+    ```typescript
     import { Route } from '@angular/router';
     import { loadRemoteModule } from '@nx/angular/mf';    <-- Updated
     import { AppComponent } from './app.component';
