@@ -26,7 +26,7 @@ You'll be prompted a few questions. Pick the `Angular` stack, `Integrated` Monor
 
   - You'll be prompted a few questions. Pick the `scss` stylesheet format, and `cypress` E2E runner. You can refer the follwoing image.
 
-![Host application](images/img-1.png)
+    ![Host application](images/img-1.png)
 
 - If you encounter the error message $\textcolor{#ff5861}{\textsf{"NX Failed to process project graph. Run 'nx reset' to fix this. Please report the issue if you keep seeing it."}}$, follow these steps to resolve it:
 
@@ -47,7 +47,7 @@ You'll be prompted a few questions. Pick the `Angular` stack, `Integrated` Monor
 
   - You'll be prompted a few questions. Pick the `scss` stylesheet format, and `cypress` E2E runner. You can refer the follwoing image.
 
-![Remote application](images/img-2.png)
+    ![Remote application](images/img-2.png)
 
 - ### Creating a buildable `library`:
 
