@@ -10,7 +10,7 @@ npx create-nx-workspace ng-mfe
 
 You'll be prompted a few questions. Pick the `Angular` stack, `Integrated` Monorepo layout and the `webpack` bundler. You can refer the follwoing image.
 
-![Commit email](images/img.png)
+![NX Workspace](images/img.png)
 
 > NOTE: As you can not skip `Application name`, use a random application name like `dummy`. Once the NX workspace is successfully created, delete the `dummy` application from the `apps/` directory.
 
@@ -26,7 +26,7 @@ You'll be prompted a few questions. Pick the `Angular` stack, `Integrated` Monor
 
   - You'll be prompted a few questions. Pick the `scss` stylesheet format, and `cypress` E2E runner. You can refer the follwoing image.
 
-    ![Commit email](images/img-1.png)
+    ![Host application](images/img-1.png)
 
   - If you encounter the error message $\textcolor{#ff5861}{\textsf{"NX Failed to process project graph. Run 'nx reset' to fix this. Please report the issue if you keep seeing it."}}$, follow these steps to resolve it:
 
@@ -47,7 +47,7 @@ You'll be prompted a few questions. Pick the `Angular` stack, `Integrated` Monor
 
   - You'll be prompted a few questions. Pick the `scss` stylesheet format, and `cypress` E2E runner. You can refer the follwoing image.
 
-    ![Commit email](images/img-2.png)
+    ![Remote application](images/img-2.png)
 
 - ### Creating a buildable `library`:
 
@@ -58,7 +58,7 @@ You'll be prompted a few questions. Pick the `Angular` stack, `Integrated` Monor
     ```
 
   - You'll be prompted a few questions. Pick the `As provided`. You can refer the follwoing image.
-    ![Commit email](images/img-3.png)
+    ![Shared Library](images/img-3.png)
 
     > This will scaffold a new library for us to use.
 
