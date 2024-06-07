@@ -26,16 +26,16 @@ You'll be prompted a few questions. Pick the `Angular` stack, `Integrated` Monor
 
   - You'll be prompted a few questions. Pick the `scss` stylesheet format, and `cypress` E2E runner. You can refer the follwoing image.
 
-    ![Host application](images/img-1.png)
+![Host application](images/img-1.png)
 
-  - If you encounter the error message $\textcolor{#ff5861}{\textsf{"NX Failed to process project graph. Run 'nx reset' to fix this. Please report the issue if you keep seeing it."}}$, follow these steps to resolve it:
+- If you encounter the error message $\textcolor{#ff5861}{\textsf{"NX Failed to process project graph. Run 'nx reset' to fix this. Please report the issue if you keep seeing it."}}$, follow these steps to resolve it:
 
-    ```shell
-    1. remove `node_modules`
-    2. npm cache clean --force
-    3. npm cache verify
-    4. npm install
-    ```
+  ```shell
+  1. remove `node_modules`
+  2. npm cache clean --force
+  3. npm cache verify
+  4. npm install
+  ```
 
 - ### Creating `remote` application:
 
@@ -47,7 +47,7 @@ You'll be prompted a few questions. Pick the `Angular` stack, `Integrated` Monor
 
   - You'll be prompted a few questions. Pick the `scss` stylesheet format, and `cypress` E2E runner. You can refer the follwoing image.
 
-    ![Remote application](images/img-2.png)
+![Remote application](images/img-2.png)
 
 - ### Creating a buildable `library`:
 
@@ -60,7 +60,7 @@ You'll be prompted a few questions. Pick the `Angular` stack, `Integrated` Monor
   - You'll be prompted a few questions. Pick the `As provided`. You can refer the follwoing image.
     ![Shared Library](images/img-3.png)
 
-    > This will scaffold a new library for us to use.
+        > This will scaffold a new library for us to use.
 
 - ### Creating a `service`:
 
