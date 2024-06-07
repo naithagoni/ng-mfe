@@ -46,7 +46,7 @@ You'll be prompted a few questions. Pick the `Angular` stack, `Integrated` Monor
     ```
 
   - You'll be prompted a few questions. Pick the `scss` stylesheet format, and `cypress` E2E runner. You can refer the follwoing image.
-  
+
 ![Remote application](images/img-2.png)
 
 - ### Creating a buildable `library`:
@@ -58,7 +58,7 @@ You'll be prompted a few questions. Pick the `Angular` stack, `Integrated` Monor
     ```
 
   - You'll be prompted a few questions. Pick the `As provided`. You can refer the follwoing image.
-    
+
     ![Shared Library](images/img-3.png)
 
         > This will scaffold a new library for us to use.
@@ -91,14 +91,12 @@ You'll be prompted a few questions. Pick the `Angular` stack, `Integrated` Monor
 
 > $\textcolor{#16a34a}{\textsf{This concludes the setup required for a Micro Frontend approach using Static Module Federation.}}$
 
-> $\textcolor{#ca8a04}{\textsf{When serving module federation apps locally in dev mode, there'll be an error output to the console(inspect devTools): import.meta cannot be used outside of a module.}}$
-> $\textcolor{#ca8a04}{\textsf{You'll see the error originates from the styles.js script. It's a known error output, and as far as our testing has shown, it doesn't cause any breakages.}}$
-> $\textcolor{#ca8a04}{\textsf{It happens because the Angular compiler attaches the styles.js file to the index.html in a 'script' tag with defer.}}$
-> 
+> $\textcolor{#ca8a04}{\textsf{When serving module federation apps locally in dev mode, there'll be an error output to the console(inspect devTools): import.meta cannot be used outside of a module.}}$ > $\textcolor{#ca8a04}{\textsf{You'll see the error originates from the styles.js script. It's a known error output, and as far as our testing has shown, it doesn't cause any breakages.}}$ > $\textcolor{#ca8a04}{\textsf{It happens because the Angular compiler attaches the styles.js file to the index.html in a 'script' tag with defer.}}$
+>
 > $\textcolor{#ca8a04}{\textsf{It needs to be attached with type=module, but Angular can't make that change because it breaks HMR. They also provide no way of hooking into that process for us to patch it ourselves.}}$
-> 
+>
 > $\textcolor{#ca8a04}{\textsf{The good news is that the error doesn't propagate to production because styles are compiled to a CSS file, so there's no erroneous JS to log an error.}}$
-> 
+>
 > $\textcolor{#ca8a04}{\textsf{It's worth stressing that no errors or breakages have been noted from our tests.
 }}$
 
