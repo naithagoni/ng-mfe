@@ -1,12 +1,13 @@
-import { NxWelcomeComponent } from './nx-welcome.component';
 import { Route } from '@angular/router';
 import { loadRemoteModule } from '@nx/angular/mf';
+import { authGuard } from './core/guards/auth.guard';
 
 export const appRoutes: Route[] = [
   {
     path: 'todo',
     loadChildren: () =>
       loadRemoteModule('todo', './Routes').then((m) => m.remoteRoutes),
+    canActivate: [authGuard],
   },
   {
     path: 'login',
@@ -14,7 +15,9 @@ export const appRoutes: Route[] = [
       loadRemoteModule('login', './Routes').then((m) => m.remoteRoutes),
   },
   {
-    path: '',
-    component: NxWelcomeComponent,
+    path: 'home',
+    loadComponent: () =>
+      import('./components/home.component').then((m) => m.HomeComponent),
+    canActivate: [authGuard],
   },
 ];
