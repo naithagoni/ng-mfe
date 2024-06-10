@@ -2,6 +2,9 @@
   "name": "@ng-mfe/source",
   "version": "1.0.0",
   "license": "MIT",
+  "author": {
+    "name": "Naresh Aithagoni"
+  },
   "scripts": {
     "start:dash": "nx serve dashboard --devRemotes=login --open",
     "start:emp": "nx serve employee --devRemotes=login,todo --open",
